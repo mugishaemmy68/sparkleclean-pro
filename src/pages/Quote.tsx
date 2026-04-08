@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import {
-  Sparkles,
   Send,
   CheckCircle2,
   ChevronRight,
@@ -190,25 +189,31 @@ export default function Quote() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-emerald-deep pt-32 pb-12 lg:pt-40 lg:pb-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <span className="inline-flex items-center gap-2 bg-white/10 border border-white/10 rounded-full px-4 py-2 mb-6">
-            <Sparkles className="w-4 h-4 text-gold" />
-            <span className="text-white/80 text-sm">Free Estimate — No Obligation</span>
+      <section className="bg-emerald-deep pt-32 pb-12 lg:pt-40 lg:pb-16 relative overflow-hidden grain">
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-20 w-[350px] h-[350px] bg-gold/5 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-10 w-[250px] h-[250px] bg-emerald-lighter/10 rounded-full blur-[80px]" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+          <span className="inline-flex items-center gap-2 bg-white/[0.06] border border-white/[0.08] rounded-full px-5 py-2.5 mb-6 backdrop-blur-sm">
+            <span className="w-2 h-2 bg-gold rounded-full pulse-glow" />
+            <span className="text-white/70 text-sm font-medium">Free Estimate — No Obligation</span>
           </span>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
             Get Your <span className="text-gold italic">Free Quote</span>
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto mb-8">
+          <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8">
             Complete 5 quick steps and receive a personalized cleaning quote within 24 hours.
           </p>
 
           {/* Promo Banner */}
-          <div className="max-w-xl mx-auto bg-gradient-to-r from-gold-dark to-gold rounded-2xl px-6 py-4 flex items-center gap-4 shadow-lg shadow-gold/20">
-            <Gift className="w-8 h-8 text-white shrink-0" />
+          <div className="max-w-xl mx-auto bg-gradient-to-r from-gold-dark to-gold rounded-2xl px-6 py-4 flex items-center gap-4 shadow-xl shadow-gold/15 border border-gold-light/20">
+            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+              <Gift className="w-5 h-5 text-white" />
+            </div>
             <div className="text-left">
               <p className="text-white font-bold text-sm">Limited-Time Offer!</p>
-              <p className="text-white/90 text-xs">
+              <p className="text-white/85 text-xs">
                 FREE appliance cleaning with your package, or <span className="font-bold">$50 off</span> your deep clean.
               </p>
             </div>
