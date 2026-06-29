@@ -34,7 +34,7 @@ const serviceTypes = [
   { id: 'snow-seasonal', label: 'Snow Removal — Seasonal Contract' },
 ];
 
-const extras = [
+const cleaningExtras = [
   { id: 'basement', label: 'Basement Cleaning' },
   { id: 'cabinets', label: 'Inside Cabinets & Drawers' },
   { id: 'refrigerator', label: 'Refrigerator' },
@@ -48,6 +48,22 @@ const extras = [
   { id: 'pets', label: 'Pets (extra fur & dander)' },
   { id: 'mattress', label: 'Mattress Steam Cleaning' },
 ];
+
+const snowExtras = [
+  { id: 'backyard-path', label: 'Backyard Pathway' },
+  { id: 'extra-walkway', label: 'Additional Walkway' },
+  { id: 'garage-front', label: 'Garage Entrance' },
+  { id: 'deck-patio', label: 'Deck / Patio Clearing' },
+  { id: 'roof-snow', label: 'Roof Snow Removal' },
+  { id: 'ice-chipping', label: 'Ice Chipping & Removal' },
+  { id: 'salting-extra', label: 'Extra Salting / Sanding' },
+  { id: 'mailbox-path', label: 'Mailbox & Side Path' },
+];
+
+const snowServiceIds = ['snow', 'snow-seasonal'];
+
+const drivewayOptions = ['Single Car', 'Double Car', 'Triple Car', 'Extra Long', 'Circular / Custom'];
+const snowPropertyTypes = ['House', 'Townhouse', 'Condo Complex', 'Office Building', 'Retail / Storefront', 'Parking Lot', 'Other Commercial'];
 
 const frequencies = [
   { id: 'weekly', label: 'Weekly', tag: 'Best Value' },
@@ -102,9 +118,15 @@ export default function Quote() {
   const [bedrooms, setBedrooms] = useState('');
   const [fullBathrooms, setFullBathrooms] = useState('');
   const [halfBathrooms, setHalfBathrooms] = useState('');
+  const [drivewaySize, setDrivewaySize] = useState('');
+  const [snowPropertyType, setSnowPropertyType] = useState('');
+  const [lotSize, setLotSize] = useState('');
   const [preferredDate, setPreferredDate] = useState('');
   const [preferredTime, setPreferredTime] = useState('');
   const [discountCode, setDiscountCode] = useState('');
+
+  const isSnow = snowServiceIds.includes(serviceType);
+  const currentExtras = isSnow ? snowExtras : cleaningExtras;
 
   // Step 4
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
@@ -125,7 +147,11 @@ export default function Quote() {
     switch (step) {
       case 1: return !!(firstName && lastName && email && phone);
       case 2: return !!(address && city && province && postalCode);
-      case 3: return !!(serviceType && bedrooms && fullBathrooms && preferredDate);
+      case 3: {
+        if (!serviceType || !preferredDate) return false;
+        if (isSnow) return !!(drivewaySize && snowPropertyType);
+        return !!(bedrooms && fullBathrooms);
+      }
       case 4: return true;
       case 5: return !!frequency;
       default: return false;
@@ -370,29 +396,57 @@ export default function Quote() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label className={labelClass}>Bedrooms *</label>
-                    <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} required className={selectClass}>
-                      <option value="">Select</option>
-                      {['1', '2', '3', '4', '5', '6+'].map((n) => <option key={n} value={n}>{n}</option>)}
-                    </select>
+                {/* Conditional fields based on service type */}
+                {serviceType && !isSnow && (
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <label className={labelClass}>Bedrooms *</label>
+                      <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} required className={selectClass}>
+                        <option value="">Select</option>
+                        {['1', '2', '3', '4', '5', '6+'].map((n) => <option key={n} value={n}>{n}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Full Baths *</label>
+                      <select value={fullBathrooms} onChange={(e) => setFullBathrooms(e.target.value)} required className={selectClass}>
+                        <option value="">Select</option>
+                        {['1', '2', '3', '4', '5+'].map((n) => <option key={n} value={n}>{n}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Half Baths</label>
+                      <select value={halfBathrooms} onChange={(e) => setHalfBathrooms(e.target.value)} className={selectClass}>
+                        <option value="">0</option>
+                        {['1', '2', '3'].map((n) => <option key={n} value={n}>{n}</option>)}
+                      </select>
+                    </div>
                   </div>
-                  <div>
-                    <label className={labelClass}>Full Baths *</label>
-                    <select value={fullBathrooms} onChange={(e) => setFullBathrooms(e.target.value)} required className={selectClass}>
-                      <option value="">Select</option>
-                      {['1', '2', '3', '4', '5+'].map((n) => <option key={n} value={n}>{n}</option>)}
-                    </select>
+                )}
+
+                {serviceType && isSnow && (
+                  <div className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className={labelClass}>Property Type *</label>
+                        <select value={snowPropertyType} onChange={(e) => setSnowPropertyType(e.target.value)} required className={selectClass}>
+                          <option value="">Select property type</option>
+                          {snowPropertyTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className={labelClass}>Driveway Size *</label>
+                        <select value={drivewaySize} onChange={(e) => setDrivewaySize(e.target.value)} required className={selectClass}>
+                          <option value="">Select size</option>
+                          {drivewayOptions.map((d) => <option key={d} value={d}>{d}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="md:w-1/2">
+                      <label className={labelClass}>Approximate Lot Size (sq ft)</label>
+                      <input type="number" value={lotSize} onChange={(e) => setLotSize(e.target.value)} className={inputClass} placeholder="e.g. 5000" />
+                    </div>
                   </div>
-                  <div>
-                    <label className={labelClass}>Half Baths</label>
-                    <select value={halfBathrooms} onChange={(e) => setHalfBathrooms(e.target.value)} className={selectClass}>
-                      <option value="">0</option>
-                      {['1', '2', '3'].map((n) => <option key={n} value={n}>{n}</option>)}
-                    </select>
-                  </div>
-                </div>
+                )}
 
                 <div>
                   <label className={labelClass}>Preferred Date *</label>
@@ -425,9 +479,13 @@ export default function Quote() {
             {step === 4 && (
               <div className="space-y-8">
                 <div>
-                  <p className="text-sm text-gray-500 mb-4">Select any additional services to add to your cleaning package.</p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    {isSnow
+                      ? 'Select any additional areas or services for your snow removal.'
+                      : 'Select any additional services to add to your cleaning package.'}
+                  </p>
                   <div className="grid sm:grid-cols-2 gap-3">
-                    {extras.map((e) => {
+                    {currentExtras.map((e) => {
                       const selected = selectedExtras.includes(e.id);
                       return (
                         <button
@@ -455,7 +513,9 @@ export default function Quote() {
                 </div>
 
                 <div className="pt-4 border-t border-gray-100">
-                  <h3 className="font-serif text-lg font-bold text-emerald-deep mb-4">About Your Home</h3>
+                  <h3 className="font-serif text-lg font-bold text-emerald-deep mb-4">
+                    {isSnow ? 'About Your Property' : 'About Your Home'}
+                  </h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className={labelClass}>Approximate Square Footage</label>
