@@ -6,6 +6,7 @@ import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Quote from './pages/Quote';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/quote" element={<Quote />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -14,6 +14,8 @@ import {
   Tag,
 } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { addBooking } from '../hooks/useBookings';
+import BookingCalendar from '../components/BookingCalendar';
 
 /* ───────────── data ───────────── */
 
@@ -134,7 +136,7 @@ export default function Quote() {
     switch (step) {
       case 1: return !!(firstName && lastName && email && phone);
       case 2: return !!(address && city && province && postalCode);
-      case 3: return !!(serviceType && bedrooms && fullBathrooms);
+      case 3: return !!(serviceType && bedrooms && fullBathrooms && preferredDate);
       case 4: return true;
       case 5: return !!frequency;
       default: return false;
@@ -143,7 +145,19 @@ export default function Quote() {
 
   const next = () => { if (canProceed() && step < 5) setStep(step + 1); };
   const prev = () => { if (step > 1) setStep(step - 1); };
-  const handleSubmit = () => { if (canProceed()) setSubmitted(true); };
+  const handleSubmit = () => {
+    if (!canProceed()) return;
+    const serviceName = serviceTypes.find((s) => s.id === serviceType)?.label ?? '';
+    addBooking({
+      date: preferredDate,
+      name: `${firstName} ${lastName}`,
+      email,
+      service: serviceName,
+      time: preferredTime,
+      status: 'pending',
+    });
+    setSubmitted(true);
+  };
 
   /* ── success ── */
   if (submitted) {
@@ -392,20 +406,22 @@ export default function Quote() {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className={labelClass}>Preferred Date</label>
-                    <input type="date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className={inputClass} />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Preferred Time</label>
-                    <select value={preferredTime} onChange={(e) => setPreferredTime(e.target.value)} className={selectClass}>
-                      <option value="">Select time</option>
-                      <option>Morning (8am - 12pm)</option>
-                      <option>Afternoon (12pm - 4pm)</option>
-                      <option>Evening (4pm - 8pm)</option>
-                    </select>
-                  </div>
+                <div>
+                  <label className={labelClass}>Preferred Date *</label>
+                  <p className="text-xs text-gray-400 mb-3">Select an available date from the calendar. Greyed-out dates are unavailable.</p>
+                  <BookingCalendar
+                    selectedDate={preferredDate}
+                    onSelectDate={setPreferredDate}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Preferred Time</label>
+                  <select value={preferredTime} onChange={(e) => setPreferredTime(e.target.value)} className={selectClass}>
+                    <option value="">Select time</option>
+                    <option>Morning (8am - 12pm)</option>
+                    <option>Afternoon (12pm - 4pm)</option>
+                    <option>Evening (4pm - 8pm)</option>
+                  </select>
                 </div>
 
                 <div>
