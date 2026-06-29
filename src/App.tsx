@@ -7,6 +7,7 @@ import Pricing from './pages/Pricing';
 import Quote from './pages/Quote';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
+import Links from './pages/Links';
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Admin />} />
         </Route>
+        {/* Standalone pages (no navbar/footer) */}
+        <Route path="/links" element={<Links />} />
       </Routes>
     </BrowserRouter>
   );
