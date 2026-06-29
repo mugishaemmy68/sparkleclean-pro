@@ -125,11 +125,11 @@ export default function Home() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <a
-                  href="tel:+17805551234"
+                  href="tel:+17808847305"
                   className="inline-flex items-center justify-center gap-3 border border-white/20 text-white px-9 py-4 rounded-full font-semibold hover:bg-white/5 hover:border-white/30 transition-all duration-300"
                 >
                   <Phone className="w-4 h-4" />
-                  (780) 555-1234
+                  (780) 884-7305
                 </a>
               </div>
 
@@ -417,10 +417,10 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
-                href="tel:+17805551234"
+                href="tel:+17808847305"
                 className="inline-flex items-center justify-center gap-2 border-2 border-emerald-deep/20 text-emerald-deep px-9 py-4 rounded-full font-semibold hover:bg-emerald-deep hover:text-white hover:border-emerald-deep transition-all duration-300"
               >
-                Call (780) 555-1234
+                Call (780) 884-7305
               </a>
             </div>
           </div>

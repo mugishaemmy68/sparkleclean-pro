@@ -116,12 +116,12 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-gold/70 mt-0.5 shrink-0" />
-                <span>10234 Jasper Avenue NW<br />Edmonton, AB T5J 3N6</span>
+                <span>11912 175 Ave NW<br />Edmonton, AB T5X 0A5</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-gold/70 shrink-0" />
-                <a href="tel:+17805551234" className="hover:text-gold transition-colors">
-                  (780) 555-1234
+                <a href="tel:+17808847305" className="hover:text-gold transition-colors">
+                  (780) 884-7305
                 </a>
               </li>
               <li className="flex items-center gap-3">

@@ -16,13 +16,13 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Visit Us',
-    lines: ['10234 Jasper Avenue NW', 'Edmonton, AB T5J 3N6'],
+    lines: ['11912 175 Ave NW', 'Edmonton, AB T5X 0A5'],
   },
   {
     icon: Phone,
     title: 'Call Us',
-    lines: ['(780) 555-1234', 'Mon-Sat: 7am - 8pm'],
-    href: 'tel:+17805551234',
+    lines: ['(780) 884-7305', 'Mon-Sat: 7am - 8pm'],
+    href: 'tel:+17808847305',
   },
   {
     icon: Mail,
@@ -169,7 +169,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                    <input type="tel" className={inputClass} placeholder="(780) 555-1234" />
+                    <input type="tel" className={inputClass} placeholder="(780) 884-7305" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>

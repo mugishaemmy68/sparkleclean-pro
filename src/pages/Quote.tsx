@@ -188,8 +188,8 @@ export default function Quote() {
               </div>
               <p className="text-gray-500 text-sm">
                 Need immediate help? Call{' '}
-                <a href="tel:+17805551234" className="text-gold font-semibold hover:underline">
-                  (780) 555-1234
+                <a href="tel:+17808847305" className="text-gold font-semibold hover:underline">
+                  (780) 884-7305
                 </a>
               </p>
             </div>
@@ -312,7 +312,7 @@ export default function Quote() {
                 </div>
                 <div>
                   <label className={labelClass}>Phone Number *</label>
-                  <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required className={inputClass} placeholder="(780) 555-1234" />
+                  <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required className={inputClass} placeholder="(780) 884-7305" />
                 </div>
                 <label className="flex items-center gap-3 cursor-pointer p-4 rounded-xl border border-gray-100 hover:border-gold/30 transition-colors">
                   <input
@@ -353,7 +353,7 @@ export default function Quote() {
                 </div>
                 <div className="md:w-1/2">
                   <label className={labelClass}>Postal Code *</label>
-                  <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required className={inputClass} placeholder="T5J 3N6" />
+                  <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required className={inputClass} placeholder="T5X 0A5" />
                 </div>
               </div>
             )}
