@@ -96,6 +96,7 @@ export default function Footer() {
                 'Commercial Cleaning',
                 'Office Maintenance',
                 'Post-Construction',
+                'Snow Removal',
               ].map((s) => (
                 <li key={s}>
                   <Link

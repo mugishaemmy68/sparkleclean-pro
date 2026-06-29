@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Sparkles, CheckCircle2, ArrowRight, Star } from 'lucide-react';
+import { Sparkles, CheckCircle2, ArrowRight, Star, Snowflake } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
@@ -289,6 +289,118 @@ export default function Pricing() {
                 <Link
                   to="/quote"
                   className="block text-center py-3 rounded-full font-semibold text-sm transition-all duration-300 bg-gradient-to-r from-emerald-deep to-emerald-light hover:from-emerald-light hover:to-emerald-deep text-white hover:shadow-lg hover:shadow-emerald-deep/20 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  {plan.price === 'Custom' ? 'Request Quote' : 'Get Started'}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Snow Removal Pricing */}
+      <section className="py-20 lg:py-28 bg-cream-dark">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Snowflake className="w-6 h-6 text-gold" />
+            <span className="text-gold font-semibold text-xs tracking-[0.2em] uppercase">Seasonal</span>
+          </div>
+          <SectionHeading
+            subtitle=""
+            title="Snow Removal Plans"
+            description="Keep your property safe and accessible all winter long. Seasonal contracts or per-visit pricing available."
+          />
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                name: 'Per Visit',
+                price: '49',
+                frequency: 'per visit',
+                description: 'On-demand snow clearing for driveways and walkways.',
+                features: [
+                  'Driveway snow clearing',
+                  'Walkway & steps shoveling',
+                  'Salt / sand application',
+                  'Same-day booking available',
+                ],
+              },
+              {
+                name: 'Seasonal Residential',
+                price: '199',
+                frequency: 'per month',
+                description: 'Worry-free all-winter coverage for your home. Nov–Apr.',
+                features: [
+                  'Unlimited snowfall events',
+                  'Driveway + all walkways',
+                  'Priority morning service',
+                  'Salt & sand included',
+                  'Guaranteed response time',
+                ],
+                popular: true,
+              },
+              {
+                name: 'Seasonal Commercial',
+                price: 'Custom',
+                frequency: 'quote',
+                description: 'Tailored snow management for parking lots and commercial properties.',
+                features: [
+                  'Parking lot plowing',
+                  'Sidewalk & entrance clearing',
+                  '24/7 emergency response',
+                  'Ice management program',
+                  'Liability documentation',
+                ],
+              },
+            ].map((plan, i) => (
+              <div
+                key={plan.name}
+                className={`fade-up rounded-2xl p-8 relative ${
+                  plan.popular
+                    ? 'bg-emerald-deep text-white shadow-2xl scale-105 border-2 border-gold'
+                    : 'card-lift bg-white shadow-sm border border-gray-100'
+                }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                    <span className="inline-flex items-center gap-1 bg-gradient-to-r from-gold to-gold-dark text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-gold/25">
+                      <Snowflake className="w-3 h-3" /> Best Value
+                    </span>
+                  </div>
+                )}
+                <h3 className={`font-serif text-xl font-bold mb-2 tracking-tight ${plan.popular ? 'text-white' : 'text-emerald-deep'}`}>
+                  {plan.name}
+                </h3>
+                <p className={`text-sm mb-6 ${plan.popular ? 'text-white/60' : 'text-gray-500'}`}>
+                  {plan.description}
+                </p>
+                <div className="mb-2">
+                  {plan.price === 'Custom' ? (
+                    <span className={`font-serif text-3xl font-bold ${plan.popular ? 'text-gold' : 'text-emerald-deep'}`}>Custom</span>
+                  ) : (
+                    <>
+                      <span className={`font-serif text-4xl font-bold ${plan.popular ? 'text-gold' : 'text-emerald-deep'}`}>${plan.price}</span>
+                      <span className={`text-sm ml-1 ${plan.popular ? 'text-white/50' : 'text-gray-400'}`}>{plan.frequency}</span>
+                    </>
+                  )}
+                </div>
+                <div className={`h-px w-full bg-gradient-to-r from-transparent ${plan.popular ? 'via-white/10' : 'via-gray-200'} to-transparent mb-6`} />
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((f) => (
+                    <li key={f} className={`flex items-center gap-2 text-sm ${plan.popular ? 'text-white/80' : 'text-gray-600'}`}>
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-gold" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/quote"
+                  className={`block text-center py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-white hover:shadow-lg hover:shadow-gold/25'
+                      : 'bg-gradient-to-r from-emerald-deep to-emerald-light hover:from-emerald-light hover:to-emerald-deep text-white hover:shadow-lg hover:shadow-emerald-deep/20'
+                  }`}
                 >
                   {plan.price === 'Custom' ? 'Request Quote' : 'Get Started'}
                 </Link>

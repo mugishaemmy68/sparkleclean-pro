@@ -11,6 +11,7 @@ import {
   Building2,
   Quote,
   Phone,
+  Snowflake,
 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -272,11 +273,11 @@ export default function Home() {
           <SectionHeading
             subtitle="Our Services"
             title="Tailored Cleaning Solutions"
-            description="From cozy homes to sprawling commercial spaces, we deliver spotless results every time."
+            description="From cozy homes to commercial spaces — plus Edmonton snow removal. We deliver spotless results year-round."
             light
           />
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Residential */}
             <div className="fade-up group relative">
               <div className="absolute inset-0 bg-gradient-to-br from-gold/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -327,6 +328,39 @@ export default function Home() {
                     'Retail space maintenance',
                     'Medical facility sanitation',
                     'Post-construction cleanup',
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-3 text-white/60 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-gold/70 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/services"
+                  className="group/link inline-flex items-center gap-2 text-gold hover:text-gold-light text-sm font-semibold transition-colors"
+                >
+                  Learn More <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Snow Removal */}
+            <div className="fade-up group relative" style={{ transitionDelay: '300ms' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-gold/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative bg-white/[0.04] border border-white/[0.08] rounded-3xl p-10 hover:bg-white/[0.07] transition-all duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-gold/15 flex items-center justify-center mb-6">
+                  <Snowflake className="w-7 h-7 text-gold" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-white mb-2">
+                  Snow Removal
+                </h3>
+                <p className="text-white/40 text-sm mb-6">Edmonton winter specialists</p>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    'Residential driveway clearing',
+                    'Commercial lot plowing',
+                    'Seasonal contracts available',
+                    'Emergency snow service',
                   ].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-white/60 text-sm">
                       <CheckCircle2 className="w-4 h-4 text-gold/70 shrink-0" />

@@ -30,6 +30,8 @@ const serviceTypes = [
   { id: 'onetime', label: 'One Time or Occasional Cleaning', price: 280 },
   { id: 'moveinout', label: 'Move-in / Move-out Cleaning', price: 350 },
   { id: 'carpet', label: 'Carpet Cleaning', price: 199 },
+  { id: 'snow', label: 'Snow Removal', price: 49 },
+  { id: 'snow-seasonal', label: 'Snow Removal — Seasonal Contract', price: 199 },
 ];
 
 const extras = [

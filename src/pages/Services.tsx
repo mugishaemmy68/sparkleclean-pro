@@ -10,6 +10,10 @@ import {
   Store,
   ArrowRight,
   CheckCircle2,
+  Snowflake,
+  Shovel,
+  ThermometerSnowflake,
+  Timer,
 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -73,6 +77,37 @@ const commercialServices = [
     description:
       'Specialized commercial post-construction cleanup for new builds, renovations, and tenant improvements. Ready for occupancy fast.',
     features: ['Heavy debris removal', 'Concrete dust cleaning', 'Window & glass polishing', 'Final detail inspection'],
+  },
+];
+
+const snowServices = [
+  {
+    icon: Snowflake,
+    title: 'Residential Snow Removal',
+    description:
+      'Keep your driveway, walkways, and entrance clear all winter long. Reliable, early-morning service so you can get on with your day safely.',
+    features: ['Driveway clearing', 'Walkway & sidewalk shoveling', 'Front entrance & steps', 'Salt & sand application'],
+  },
+  {
+    icon: Shovel,
+    title: 'Commercial Snow Removal',
+    description:
+      'Professional snow clearing for parking lots, storefronts, and commercial properties. Keep your business accessible and liability-free.',
+    features: ['Parking lot plowing', 'Sidewalk & entrance clearing', 'Loading dock access', 'Ice management & salting'],
+  },
+  {
+    icon: ThermometerSnowflake,
+    title: 'Seasonal Contracts',
+    description:
+      'Lock in worry-free snow removal for the entire winter season. Priority scheduling and guaranteed response times for every snowfall.',
+    features: ['November to April coverage', 'Priority response guarantee', 'Unlimited snowfall events', 'Flat monthly rate'],
+  },
+  {
+    icon: Timer,
+    title: 'Emergency Snow Service',
+    description:
+      'Heavy snowfall or ice storm? Our emergency team is on call for rapid response when Edmonton gets hit with unexpected winter weather.',
+    features: ['24/7 emergency dispatch', 'Rapid 2-hour response', 'Heavy accumulation removal', 'Ice storm cleanup'],
   },
 ];
 
@@ -188,6 +223,30 @@ export default function Services() {
           />
           <div className="grid md:grid-cols-2 gap-8">
             {commercialServices.map((service, i) => (
+              <ServiceCard key={service.title} service={service} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Snow Removal */}
+      <section className="relative py-20 lg:py-28 overflow-hidden">
+        <div className="absolute top-1/2 -translate-y-1/2 -right-64 w-[500px] h-[500px] bg-gradient-to-br from-blue-100/30 to-transparent rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute top-16 left-16 w-2 h-2 rounded-full bg-blue-300/30" />
+        <div className="absolute bottom-24 right-24 w-1.5 h-1.5 rounded-full bg-emerald-deep/15" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="fade-up flex items-center gap-4 mb-4">
+            <Snowflake className="w-8 h-8 text-gold" />
+            <span className="text-gold font-semibold text-sm tracking-widest uppercase">Seasonal</span>
+          </div>
+          <SectionHeading
+            title="Snow Removal Services"
+            description="Edmonton winters are no joke. Keep your property safe and accessible with our reliable snow removal for homes and businesses."
+            center={false}
+          />
+          <div className="grid md:grid-cols-2 gap-8">
+            {snowServices.map((service, i) => (
               <ServiceCard key={service.title} service={service} index={i} />
             ))}
           </div>
