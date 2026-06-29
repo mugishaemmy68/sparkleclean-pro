@@ -26,35 +26,35 @@ const provinces = [
 ];
 
 const serviceTypes = [
-  { id: 'standard', label: 'Standard Cleaning Package', price: 240 },
-  { id: 'onetime', label: 'One Time or Occasional Cleaning', price: 280 },
-  { id: 'moveinout', label: 'Move-in / Move-out Cleaning', price: 350 },
-  { id: 'carpet', label: 'Carpet Cleaning', price: 199 },
-  { id: 'snow', label: 'Snow Removal', price: 49 },
-  { id: 'snow-seasonal', label: 'Snow Removal — Seasonal Contract', price: 199 },
+  { id: 'standard', label: 'Standard Cleaning Package' },
+  { id: 'onetime', label: 'One Time or Occasional Cleaning' },
+  { id: 'moveinout', label: 'Move-in / Move-out Cleaning' },
+  { id: 'carpet', label: 'Carpet Cleaning' },
+  { id: 'snow', label: 'Snow Removal' },
+  { id: 'snow-seasonal', label: 'Snow Removal — Seasonal Contract' },
 ];
 
 const extras = [
-  { id: 'basement', label: 'Basement Cleaning', price: 60 },
-  { id: 'cabinets', label: 'Inside Cabinets & Drawers', price: 45 },
-  { id: 'refrigerator', label: 'Refrigerator', price: 35 },
-  { id: 'oven', label: 'Oven', price: 35 },
-  { id: 'closets', label: 'Closets', price: 30 },
-  { id: 'walls', label: 'Wall Washing', price: 75 },
-  { id: 'windows', label: 'Window Washing', price: 65 },
-  { id: 'carpetExtra', label: 'Carpet Cleaning (add-on)', price: 80 },
-  { id: 'stairs', label: 'Stair Cleaning', price: 30 },
-  { id: 'extraRoom', label: 'Additional Room', price: 40 },
-  { id: 'pets', label: 'Pets (extra fur & dander)', price: 25 },
-  { id: 'mattress', label: 'Mattress Steam Cleaning', price: 55 },
+  { id: 'basement', label: 'Basement Cleaning' },
+  { id: 'cabinets', label: 'Inside Cabinets & Drawers' },
+  { id: 'refrigerator', label: 'Refrigerator' },
+  { id: 'oven', label: 'Oven' },
+  { id: 'closets', label: 'Closets' },
+  { id: 'walls', label: 'Wall Washing' },
+  { id: 'windows', label: 'Window Washing' },
+  { id: 'carpetExtra', label: 'Carpet Cleaning (add-on)' },
+  { id: 'stairs', label: 'Stair Cleaning' },
+  { id: 'extraRoom', label: 'Additional Room' },
+  { id: 'pets', label: 'Pets (extra fur & dander)' },
+  { id: 'mattress', label: 'Mattress Steam Cleaning' },
 ];
 
 const frequencies = [
-  { id: 'weekly', label: 'Weekly', discount: 20, tag: 'Best Value' },
-  { id: 'biweekly', label: 'Bi-Weekly', discount: 15, tag: 'Popular' },
-  { id: 'triweekly', label: 'Tri-Weekly', discount: 10, tag: '' },
-  { id: 'monthly', label: 'Monthly', discount: 10, tag: '' },
-  { id: 'onetime', label: 'One Time', discount: 0, tag: '' },
+  { id: 'weekly', label: 'Weekly', tag: 'Best Value' },
+  { id: 'biweekly', label: 'Bi-Weekly', tag: 'Popular' },
+  { id: 'triweekly', label: 'Tri-Weekly', tag: '' },
+  { id: 'monthly', label: 'Monthly', tag: '' },
+  { id: 'onetime', label: 'One Time', tag: '' },
 ];
 
 const homeTypes = ['Apartment', 'Condo', 'Townhouse', 'Single Family Home'];
@@ -115,19 +115,6 @@ export default function Quote() {
   // Step 5
   const [frequency, setFrequency] = useState('');
 
-  /* ── pricing calc ── */
-  const basePrice = serviceTypes.find((s) => s.id === serviceType)?.price ?? 240;
-  const extrasTotal = selectedExtras.reduce((sum, id) => {
-    const e = extras.find((x) => x.id === id);
-    return sum + (e?.price ?? 0);
-  }, 0);
-  const subtotal = basePrice + extrasTotal;
-  const discountPct = frequencies.find((f) => f.id === frequency)?.discount ?? 0;
-  const discountAmt = Math.round(subtotal * (discountPct / 100));
-  const afterDiscount = subtotal - discountAmt;
-  const gst = Math.round(afterDiscount * 0.05 * 100) / 100;
-  const total = Math.round((afterDiscount + gst) * 100) / 100;
-
   const toggleExtra = useCallback((id: string) => {
     setSelectedExtras((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
@@ -186,7 +173,7 @@ export default function Quote() {
               <div className="bg-cream rounded-xl p-6 mb-6 text-left text-sm space-y-1 text-gray-600">
                 <p><span className="font-medium text-emerald-deep">Service:</span> {serviceTypes.find(s => s.id === serviceType)?.label}</p>
                 <p><span className="font-medium text-emerald-deep">Frequency:</span> {frequencies.find(f => f.id === frequency)?.label}</p>
-                <p><span className="font-medium text-emerald-deep">Estimated Total:</span> <span className="text-gold font-bold">${total.toFixed(2)}</span> (incl. GST)</p>
+                <p><span className="font-medium text-emerald-deep">Extras:</span> {selectedExtras.length > 0 ? `${selectedExtras.length} add-on(s) selected` : 'None'}</p>
               </div>
               <p className="text-gray-500 text-sm">
                 Need immediate help? Call{' '}
@@ -230,7 +217,7 @@ export default function Quote() {
             <div className="text-left">
               <p className="text-white font-bold text-sm">Limited-Time Offer!</p>
               <p className="text-white/85 text-xs">
-                FREE appliance cleaning with your package, or <span className="font-bold">$50 off</span> your deep clean.
+                FREE appliance cleaning with your package, or a <span className="font-bold">special discount</span> on your deep clean.
               </p>
             </div>
           </div>
@@ -378,7 +365,6 @@ export default function Quote() {
                         }`}
                       >
                         <span className="text-sm font-medium text-emerald-deep block">{s.label}</span>
-                        <span className="text-xs text-gold font-semibold">from ${s.price}</span>
                       </button>
                     ))}
                   </div>
@@ -462,7 +448,6 @@ export default function Quote() {
                             </span>
                             <span className="text-sm text-gray-700">{e.label}</span>
                           </span>
-                          <span className="text-xs font-semibold text-gold">+${e.price}</span>
                         </button>
                       );
                     })}
@@ -522,11 +507,6 @@ export default function Quote() {
                             </span>
                             <span>
                               <span className="text-sm font-semibold text-emerald-deep">{f.label}</span>
-                              {f.discount > 0 && (
-                                <span className="ml-2 inline-flex items-center bg-emerald-deep/10 text-emerald-deep text-xs font-bold px-2 py-0.5 rounded-full">
-                                  {f.discount}% off
-                                </span>
-                              )}
                             </span>
                           </span>
                           {f.tag && (
@@ -540,41 +520,30 @@ export default function Quote() {
                   </div>
                 </div>
 
-                {/* Price Summary */}
+                {/* Request Summary */}
                 <div className="bg-emerald-deep rounded-2xl p-6 md:p-8">
-                  <h3 className="font-serif text-lg font-bold text-white mb-5">Quote Summary</h3>
+                  <h3 className="font-serif text-lg font-bold text-white mb-5">Your Request Summary</h3>
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between text-white/70">
-                      <span>{serviceTypes.find(s => s.id === serviceType)?.label ?? 'Cleaning Service'}</span>
-                      <span>${basePrice.toFixed(2)}</span>
+                      <span>Service</span>
+                      <span className="text-white/90 font-medium">{serviceTypes.find(s => s.id === serviceType)?.label ?? '—'}</span>
                     </div>
                     {selectedExtras.length > 0 && (
                       <div className="flex justify-between text-white/70">
-                        <span>Add-ons ({selectedExtras.length} selected)</span>
-                        <span>+${extrasTotal.toFixed(2)}</span>
+                        <span>Add-ons</span>
+                        <span className="text-white/90 font-medium">{selectedExtras.length} selected</span>
                       </div>
                     )}
-                    <div className="border-t border-white/10 pt-3 flex justify-between text-white/80 font-medium">
-                      <span>Sub-total</span>
-                      <span>${subtotal.toFixed(2)}</span>
+                    <div className="flex justify-between text-white/70">
+                      <span>Frequency</span>
+                      <span className="text-white/90 font-medium">{frequencies.find(f => f.id === frequency)?.label ?? '—'}</span>
                     </div>
-                    {discountPct > 0 && (
-                      <div className="flex justify-between text-green-300 font-medium">
-                        <span>{frequency && frequencies.find(f => f.id === frequency)?.label} Discount ({discountPct}%)</span>
-                        <span>-${discountAmt.toFixed(2)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between text-white/60">
-                      <span>GST (5%)</span>
-                      <span>${gst.toFixed(2)}</span>
-                    </div>
-                    <div className="border-t border-white/10 pt-3 flex justify-between text-white font-bold text-lg">
-                      <span>Estimated Total</span>
-                      <span className="text-gold">${total.toFixed(2)}</span>
+                    <div className="border-t border-white/10 pt-3">
+                      <p className="text-gold font-semibold text-center">We'll prepare a custom quote for you</p>
                     </div>
                   </div>
-                  <p className="text-white/40 text-xs mt-4">
-                    * Final price may vary based on home condition and specific requirements. This is an estimate only.
+                  <p className="text-white/40 text-xs mt-4 text-center">
+                    Our team will review your request and provide a personalized quote within 24 hours.
                   </p>
                 </div>
               </div>
